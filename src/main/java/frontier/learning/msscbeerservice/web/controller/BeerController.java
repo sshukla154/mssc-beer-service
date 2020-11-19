@@ -2,6 +2,7 @@ package frontier.learning.msscbeerservice.web.controller;
 
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,10 @@ public class BeerController {
 	@PostMapping
 	public ResponseEntity<BeerDTO> createBeer(@RequestBody BeerDTO beerDTO) {
 		BeerDTO savedBeer = beerService.createBeer(beerDTO);
-		return new ResponseEntity<BeerDTO>(savedBeer, HttpStatus.CREATED);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		// Add hostname to URL
+		httpHeaders.add("Location", "/api/v1/beer" + savedBeer.getId().toString());
+		return new ResponseEntity<BeerDTO>(httpHeaders, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{beerId}")

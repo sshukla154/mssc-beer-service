@@ -34,7 +34,17 @@ public class BeerServiceImpl implements BeerService {
 	@Override
 	public BeerDTO createBeer(BeerDTO beerDTO) {
 		log.debug("Save a new beer...");
-		return BeerDTO.builder().id(UUID.randomUUID()).build();		
+		return BeerDTO.builder()
+				.id(UUID.randomUUID())
+				.beerName(beerDTO.getBeerName())
+				.beerStyleName(beerDTO.getBeerStyleName())
+				.version(beerDTO.getVersion())
+				.lastModifiedDate(OffsetDateTime.now())
+				.createDate(OffsetDateTime.now())
+				.upc(beerDTO.getUpc())
+				.quantityOnHand(beerDTO.getQuantityOnHand())
+				.price(beerDTO.getPrice())				
+				.build();
 	}
 
 	@Override
