@@ -21,7 +21,7 @@ import frontier.learning.msscbeerservice.web.model.BeerDTO;
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
-	
+
 	BeerService beerService;
 
 	public BeerController(BeerService beerService) {
@@ -49,6 +49,7 @@ public class BeerController {
 	}
 
 	@DeleteMapping("/{beerId}")
+//	@ResponseStatus(HttpStatus.BAD_GATEWAY)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteBeer(@PathVariable UUID beerId) {
 		beerService.deleteById(beerId);
