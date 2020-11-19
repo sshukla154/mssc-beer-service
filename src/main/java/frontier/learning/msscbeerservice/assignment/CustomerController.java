@@ -2,6 +2,7 @@ package frontier.learning.msscbeerservice.assignment;
 
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +38,11 @@ public class CustomerController {
 	public ResponseEntity<CustomerDTO> createCustomer(@PathVariable UUID customerId, @RequestBody CustomerDTO customerDTO) {
 		log.debug("CustomerController.getCustomerById()...");
 		CustomerDTO createdCustomer = customerService.createCustomer(customerId, customerDTO);
-		return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
+		//return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		// Add hostname to URL
+		httpHeaders.add("Location", "/api/v1/beer" + createdCustomer.getId().toString());
+		return new ResponseEntity<CustomerDTO>(httpHeaders, HttpStatus.CREATED);
 	}
 
 
