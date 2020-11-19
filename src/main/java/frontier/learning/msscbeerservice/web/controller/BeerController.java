@@ -2,7 +2,6 @@ package frontier.learning.msscbeerservice.web.controller;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,12 @@ import frontier.learning.msscbeerservice.web.model.BeerDTO;
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
-
-	@Autowired
+	
 	BeerService beerService;
+
+	public BeerController(BeerService beerService) {
+		this.beerService = beerService;
+	}
 
 	@GetMapping("/{beerId}")
 	public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId) {
