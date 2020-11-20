@@ -13,7 +13,7 @@
 	<artifactId>mssc-beer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mssc-beer-service</name>
-	<description>Spring Boot Micro Service Example</description>
+	<description>Spring MVC Rest Services</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
