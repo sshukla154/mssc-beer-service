@@ -2,6 +2,8 @@ package frontier.learning.msscbeerservice.web.controller;
 
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class BeerController {
 	}
 
 	@PostMapping
-	public ResponseEntity<BeerDTO> createBeer(@RequestBody BeerDTO beerDTO) {
+	public ResponseEntity<BeerDTO> createBeer(@Valid @RequestBody BeerDTO beerDTO) {
 		BeerDTO savedBeer = beerService.createBeer(beerDTO);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		// Add hostname to URL
@@ -43,7 +45,7 @@ public class BeerController {
 	}
 
 	@PutMapping("/{beerId}")
-	public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID beerId, @RequestBody BeerDTO beerDTO) {
+	public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID beerId, @Valid @RequestBody BeerDTO beerDTO) {
 		beerService.updateBeerById(beerId, beerDTO);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
