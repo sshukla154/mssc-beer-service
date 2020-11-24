@@ -68,18 +68,18 @@ public class CustomerController {
 		customerService.deleteCustomerById(customerId);
 	}
 
-	@ExceptionHandler(ConstraintViolationException.class)
-	ResponseEntity<List> exceptionHandler(ConstraintViolationException e) {
-		List<String> errors = new ArrayList<>(e.getConstraintViolations().size());
-		Consumer<ConstraintViolation> consumerAction = new Consumer<ConstraintViolation>() {
-
-			@Override
-			public void accept(ConstraintViolation constraintViolation) {
-				errors.add(constraintViolation.getPropertyPath() + " : " + constraintViolation.getMessage());
-			}
-		};
-		e.getConstraintViolations().forEach(consumerAction);
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-	}
+//	@ExceptionHandler(ConstraintViolationException.class)
+//	ResponseEntity<List> exceptionHandler(ConstraintViolationException e) {
+//		List<String> errors = new ArrayList<>(e.getConstraintViolations().size());
+//		Consumer<ConstraintViolation> consumerAction = new Consumer<ConstraintViolation>() {
+//
+//			@Override
+//			public void accept(ConstraintViolation constraintViolation) {
+//				errors.add(constraintViolation.getPropertyPath() + " : " + constraintViolation.getMessage());
+//			}
+//		};
+//		e.getConstraintViolations().forEach(consumerAction);
+//		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+//	}
 
 }

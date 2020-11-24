@@ -2,7 +2,6 @@ package frontier.learning.msscbeerservice.service;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;

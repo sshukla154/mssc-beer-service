@@ -73,23 +73,23 @@ public class BeerController {
 		beerService.deleteById(beerId);
 	}
 
-	/*
+	/*NOTE : (This validateExceptionhandler() has been moved to Advice class)
 	 * This ExceptionHandler(), will be called from create/update beer API. When any
 	 * exception is occurred in these API that will be cached by @Valid annotation
 	 * which will internally call this API
 	 */
-	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<List> validateErrorHandler(ConstraintViolationException e) {
-		List<String> errors = new ArrayList<String>(e.getConstraintViolations().size());
-		Consumer<ConstraintViolation> consumerAction = new Consumer<ConstraintViolation>() {
-
-			@Override
-			public void accept(ConstraintViolation constraintViolation) {
-				errors.add(constraintViolation.getPropertyPath() + ":" + constraintViolation.getMessage());
-			}
-		};
-		e.getConstraintViolations().forEach(consumerAction);
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-	}
+//	@ExceptionHandler(ConstraintViolationException.class)
+//	public ResponseEntity<List> validateErrorHandler(ConstraintViolationException e) {
+//		List<String> errors = new ArrayList<String>(e.getConstraintViolations().size());
+//		Consumer<ConstraintViolation> consumerAction = new Consumer<ConstraintViolation>() {
+//
+//			@Override
+//			public void accept(ConstraintViolation constraintViolation) {
+//				errors.add(constraintViolation.getPropertyPath() + ":" + constraintViolation.getMessage());
+//			}
+//		};
+//		e.getConstraintViolations().forEach(consumerAction);
+//		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+//	}
 
 }
