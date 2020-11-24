@@ -1,12 +1,7 @@
 package frontier.learning.msscbeerservice.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.function.Consumer;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -15,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +46,7 @@ public class BeerController {
 	}
 
 	@PostMapping
-	public ResponseEntity<BeerDTO> createBeer(@NotNull @Valid @RequestBody BeerDTO beerDTO) {
+	public ResponseEntity<BeerDTO> createBeer(@NotNull @Validated @RequestBody BeerDTO beerDTO) {
 		BeerDTO savedBeer = beerService.createBeer(beerDTO);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		// Add hostname to URL
@@ -61,7 +55,7 @@ public class BeerController {
 	}
 
 	@PutMapping("/{beerId}")
-	public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID beerId, @Valid @RequestBody BeerDTO beerDTO) {
+	public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID beerId, @Validated @RequestBody BeerDTO beerDTO) {
 		beerService.updateBeerById(beerId, beerDTO);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
