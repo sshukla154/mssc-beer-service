@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -29,6 +30,11 @@ public class MvcExceptionHandler {
 		};
 		e.getConstraintViolations().forEach(consumerAction);
 		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(BindException.class)
+	public ResponseEntity<List> bindExceptionHandler(BindException bindException) {
+		return new ResponseEntity<>(bindException.getAllErrors(), HttpStatus.BAD_REQUEST);
 	}
 
 }
