@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.UUID;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -29,6 +29,7 @@ import frontier.learning.msscbeerservice.service.BeerService;
 import frontier.learning.msscbeerservice.web.model.BeerDTO;
 import frontier.learning.msscbeerservice.web.model.BeerStyleEnum;
 
+@RunWith(SpringRunner.class)
 @WebMvcTest(BeerController.class)
 public class BeerControllerTest {
 
@@ -49,8 +50,7 @@ public class BeerControllerTest {
 	}
 
 	@Test
-	void getBeerById() throws Exception {
-
+	public void getBeerById() throws Exception {
 		given(beerService.getBeerById(any(UUID.class))).willReturn(validBeer);
 
 		mockMvc.perform(get("/api/v1/beer/" + validBeer.getId().toString()).accept(MediaType.APPLICATION_JSON))
@@ -60,7 +60,7 @@ public class BeerControllerTest {
 	}
 
 	@Test
-	void createBeer() throws Exception {
+	public void createBeer() throws Exception {
 		BeerDTO beerDTO = validBeer;
 		beerDTO.setId(null);
 		String beerDtoToJson = objectmapper.writeValueAsString(beerDTO);
@@ -75,7 +75,7 @@ public class BeerControllerTest {
 	}
 
 	@Test
-	void updateBeerById() throws Exception {
+	public void updateBeerById() throws Exception {
 		BeerDTO beerDTO = validBeer;
 		String beerDtoToJson = objectmapper.writeValueAsString(beerDTO);
 

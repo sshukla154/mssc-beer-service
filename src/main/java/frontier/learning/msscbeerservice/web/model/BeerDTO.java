@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
@@ -22,7 +23,6 @@ public class BeerDTO {
 	@Null
 	private UUID id;
 
-	@Positive
 	@Null
 	private Integer version;
 
@@ -32,7 +32,7 @@ public class BeerDTO {
 	@Null
 	private OffsetDateTime lastModifiedDate;
 
-	@NotNull
+	@NotBlank
 	private String beerName;
 
 	@NotNull
@@ -42,10 +42,10 @@ public class BeerDTO {
 	@NotNull
 	private Long upc;
 
-	@Positive
 	private Integer quantityOnHand;
 
 	@Positive
+	@NotNull
 	private BigDecimal price;
 
 }
