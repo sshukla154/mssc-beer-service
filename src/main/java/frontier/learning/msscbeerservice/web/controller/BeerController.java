@@ -8,10 +8,12 @@ import java.util.function.Consumer;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
 import frontier.learning.msscbeerservice.service.BeerService;
 import frontier.learning.msscbeerservice.web.model.BeerDTO;
 
+/*
+ * @Validated - Its a Spring Framework annotation which performs validation on METHOD INPUT PARAMTERS 
+ * 
+ * Eg: @NotNUll in getBeerById()
+ * Eg: @NOtNull in createBeer()
+ */
+
+@Validated
 @RestController
 @RequestMapping("/api/v1/beer")
 public class BeerController {
@@ -37,12 +47,12 @@ public class BeerController {
 	}
 
 	@GetMapping("/{beerId}")
-	public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId) {
+	public ResponseEntity<BeerDTO> getBeerById(@NotNull @PathVariable UUID beerId) {
 		return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<BeerDTO> createBeer(@Valid @RequestBody BeerDTO beerDTO) {
+	public ResponseEntity<BeerDTO> createBeer(@NotNull @Valid @RequestBody BeerDTO beerDTO) {
 		BeerDTO savedBeer = beerService.createBeer(beerDTO);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		// Add hostname to URL
