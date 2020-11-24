@@ -100,6 +100,12 @@
 			<version>4.4</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>7.0.0.Alpha6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
