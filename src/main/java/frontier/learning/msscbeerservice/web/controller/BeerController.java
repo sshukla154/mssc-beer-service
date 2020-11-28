@@ -2,7 +2,6 @@ package frontier.learning.msscbeerservice.web.controller;
 
 import java.util.UUID;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.http.HttpHeaders;
@@ -20,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import frontier.learning.msscbeerservice.service.BeerService;
+import frontier.learning.msscbeerservice.service.BeerServiceImpl;
 import frontier.learning.msscbeerservice.web.model.BeerDTO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /*
  * @Validated - Its a Spring Framework annotation which performs validation on METHOD INPUT PARAMTERS 
@@ -28,25 +30,23 @@ import frontier.learning.msscbeerservice.web.model.BeerDTO;
  * Eg: @NotNUll in getBeerById()
  * Eg: @NOtNull in createBeer()
  */
-
-@Validated
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/beer")
+@RequiredArgsConstructor
 public class BeerController {
 
-	BeerService beerService;
-
-	public BeerController(BeerService beerService) {
-		this.beerService = beerService;
-	}
+	private final BeerService beerService;
 
 	@GetMapping("/{beerId}")
 	public ResponseEntity<BeerDTO> getBeerById(@NotNull @PathVariable UUID beerId) {
+		log.debug("BeerController.getBeerById()...");
 		return new ResponseEntity<>(beerService.getBeerById(beerId), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<BeerDTO> createBeer(@NotNull @Validated @RequestBody BeerDTO beerDTO) {
+		log.debug("BeerController.createBeer()...");
 		BeerDTO savedBeer = beerService.createBeer(beerDTO);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		// Add hostname to URL
@@ -56,6 +56,7 @@ public class BeerController {
 
 	@PutMapping("/{beerId}")
 	public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID beerId, @Validated @RequestBody BeerDTO beerDTO) {
+		log.debug("BeerController.updateBeerById()...");
 		beerService.updateBeerById(beerId, beerDTO);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -64,11 +65,13 @@ public class BeerController {
 //	@ResponseStatus(HttpStatus.BAD_GATEWAY)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteBeer(@PathVariable UUID beerId) {
+		log.debug("BeerController.deleteBeer()...");
 		beerService.deleteById(beerId);
 	}
 
-	/*NOTE : (This validateExceptionhandler() has been moved to Advice class)
-	 * This ExceptionHandler(), will be called from create/update beer API. When any
+	/*
+	 * NOTE : (This validateExceptionhandler() has been moved to Advice class) This
+	 * ExceptionHandler(), will be called from create/update beer API. When any
 	 * exception is occurred in these API that will be cached by @Valid annotation
 	 * which will internally call this API
 	 */

@@ -42,7 +42,6 @@ public class Beer {
 	private Timestamp createdDate;
 
 	@UpdateTimestamp
-	@Column(updatable = false)
 	private Timestamp lastModifiedDate;
 
 	private String beerName;
